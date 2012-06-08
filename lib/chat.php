@@ -139,10 +139,11 @@ function chat_view($guid = NULL) {
 	if ($chat->canEdit()) {
 		elgg_register_menu_item('title', array(
 			'name' => 'chat_delete',
-			'href' => "chat/delete/$guid",
+			'href' => "action/chat/delete?guid=$guid",
 			'text' => elgg_echo('delete'),
 			'link_class' => 'elgg-button elgg-button-delete',
 			'confirm' => elgg_echo('chat:delete:confirm'),
+			'is_action' => true,
 		));
 		elgg_register_menu_item('title', array(
 			'name' => 'chat_edit',
