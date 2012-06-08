@@ -53,15 +53,27 @@ if (!in_array($user->getGUID(), $members)){
 	$members[] = $user->getGUID();
 }
 
-// Clear all current members because we don't know which ones were deleted.
-$entity->deleteMembers();
+$old_member_guids = $entity->getMemberGuids();
 
 // Add selected users to the chat
 foreach ($members as $member_guid) {
+	// Skip users that are already members
+	if (in_array($member_guid, $old_member_guids)) {
+		continue;
+	}
+	
 	// Add relationship "user is a member of this chat".
 	if (!$entity->addMember($member_guid)) {
 		$member = get_entity($member_guid);
 		register_error(elgg_echo("chat:error:cannot_add_member", array($member->name)));
+	}
+}
+
+// Remove users that were deselected
+foreach ($old_member_guids as $old_member_guid) {
+	if (!in_array($old_member_guid, $members)) {
+		$old_member = get_entity($old_member_guid);
+		$entity->removeMember($old_member);
 	}
 }
 

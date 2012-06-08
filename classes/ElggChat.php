@@ -21,6 +21,40 @@ class ElggChat extends ElggObject {
 	public function addMember($user_guid) {
 		return add_entity_relationship($user_guid, 'member', $this->getGUID());
 	}
+	
+	/**
+	 * Remove user from chat
+	 * 
+	 * - Delete the relationship
+	 * - Delete annotations from the messages
+	 * - Delete annotations from the chat
+	 * 
+	 * @param $user
+	 */
+	public function removeMember($user) {
+		remove_entity_relationship($user->getGUID(), 'member', $this->getGUID());
+		
+		// Get unread messages
+		$messages = elgg_get_entities_from_annotations(array(
+			'type' => 'object',
+			'subtype' => 'chat_message',
+			'annotation_name' => 'unread',
+			'annotation_owner_guids' => $user->getGUID(),
+			'container_guid' => $this->getGUID(),
+		));
+		
+		// Remove annotations from messages
+		foreach ($messages as $message) {
+			elgg_delete_annotations(array(
+				'annotation_name' => 'unread',
+				'annotation_owner_guids' => array($user->getGUID()),
+				'guid' => $message->getGUID(),
+			));
+		}
+		
+		// Remove unread_messages annotation from chat
+		$this->resetUnreadMessageCount($user);
+	}
 
 	/**
 	 * Get guids of users participating the chat.
@@ -52,16 +86,6 @@ class ElggChat extends ElggObject {
 		$options = array_merge($defaults, $options);
 
 		return elgg_get_entities_from_relationship($options);
-	}
-
-	/**
-	 * Remove all members from the chat.
-	 */
-	public function deleteMembers () {
-		$members = $this->getMemberEntities();
-		foreach($members as $member) {
-			remove_entity_relationship($member->getGUID(), 'member', $this->getGUID());
-		}
 	}
 	
 	/**
