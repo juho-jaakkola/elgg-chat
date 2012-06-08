@@ -41,6 +41,10 @@ function chat_all ($container_guid = null) {
 		));
 	}
 
+	if (empty($chats)) {
+		$chats = elgg_echo('chat:none');
+	}
+
 	$params['title'] = elgg_echo('chat');
 	$params['content'] = $chats;
 
@@ -60,7 +64,6 @@ function chat_friends ($user_guid) {
 	}
 
 	$params = array();
-
 	$params['filter_context'] = 'friends';
 	$params['title'] = elgg_echo('chat:title:friends');
 
@@ -85,12 +88,13 @@ function chat_friends ($user_guid) {
 		foreach ($friends as $friend) {
 			$options['container_guids'][] = $friend->getGUID();
 		}
-		
 		$params['content'] = elgg_list_entities_from_relationship($options);
-	} else {
+	}
+
+	if (empty($params['content'])) {
 		$params['content'] = elgg_echo('chat:none');
 	}
-	
+
 	return $params;
 }
 
