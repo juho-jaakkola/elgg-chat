@@ -6,10 +6,12 @@
 elgg.provide('elgg.chat');
 
 elgg.chat.init = function() {
-	setInterval(elgg.chat.markMessageRead, 2000);
-	
-	// @todo Should this also be called within intervals?
-	elgg.chat.getMessages();
+	if (elgg.is_logged_in()) {
+		setInterval(elgg.chat.markMessageRead, 2000);
+		
+		// @todo Should this also be called within intervals?
+		elgg.chat.getMessages();
+	}
 };
 
 /**
