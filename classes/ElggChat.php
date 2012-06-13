@@ -32,7 +32,7 @@ class ElggChat extends ElggObject {
 	 * @param $user
 	 */
 	public function removeMember($user) {
-		remove_entity_relationship($user->getGUID(), 'member', $this->getGUID());
+		$success = remove_entity_relationship($user->getGUID(), 'member', $this->getGUID());
 		
 		// Get unread messages
 		$messages = elgg_get_entities_from_annotations(array(
@@ -54,6 +54,8 @@ class ElggChat extends ElggObject {
 		
 		// Remove unread_messages annotation from chat
 		$this->resetUnreadMessageCount($user);
+		
+		return $success;
 	}
 
 	/**

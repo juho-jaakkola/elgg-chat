@@ -143,6 +143,7 @@ function chat_view($guid = NULL) {
 	}
 
 	if ($chat->canEdit()) {
+		// Delete chat button
 		elgg_register_menu_item('title', array(
 			'name' => 'chat_delete',
 			'href' => "action/chat/delete?guid=$guid",
@@ -151,13 +152,25 @@ function chat_view($guid = NULL) {
 			'confirm' => elgg_echo('chat:delete:confirm'),
 			'is_action' => true,
 		));
+		// Edit chat button
 		elgg_register_menu_item('title', array(
 			'name' => 'chat_edit',
 			'href' => "chat/edit/$guid",
 			'text' => elgg_echo('chat:edit'),
 			'link_class' => 'elgg-button elgg-button-action',
 		));
+	} else {
+		// Leave chat button
+		elgg_register_menu_item('title', array(
+			'name' => 'chat_leave',
+			'href' => "action/chat/leave?guid=$guid",
+			'text' => elgg_echo('chat:leave'),
+			'link_class' => 'elgg-button elgg-button-delete',
+			'confirm' => elgg_echo('chat:leave:confirm'),
+			'is_action' => true,
+		));
 	}
+	// Add users button
 	chat_register_addusers_button($chat);
 
 	$return['title'] = htmlspecialchars($chat->title);

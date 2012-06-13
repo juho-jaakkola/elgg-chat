@@ -11,10 +11,10 @@
 function chat_init() {
 	global $CONFIG;
 	
-	// Override some default actions
 	$actionspath = $CONFIG->pluginspath . "chat/actions/chat";
 	elgg_register_action("chat/save", "$actionspath/save.php");
 	elgg_register_action("chat/addmembers", "$actionspath/addmembers.php");
+	elgg_register_action("chat/leave", "$actionspath/leave.php");
 	elgg_register_action("chat/delete", "$actionspath/delete.php");
 	elgg_register_action("chat/message/save", "$actionspath/message/save.php");
 	elgg_register_action("chat/message/delete", "$actionspath/message/delete.php");
@@ -22,13 +22,13 @@ function chat_init() {
 	$libpath = elgg_get_plugins_path() . 'chat/lib/chat.php';
 	elgg_register_library('chat', $libpath);
 
-	// register the chat's JavaScript
+	// Register the chat's JavaScript
 	$chat_js = elgg_get_simplecache_url('js', 'chat/chat');
 	elgg_register_simplecache_view('js/chat/chat');
 	elgg_register_js('elgg.chat', $chat_js);
 	elgg_load_js('elgg.chat');
 
-	// register the chat's JavaScript
+	// Register the chat's messaging JavaScript
 	$chat_messaging_js = elgg_get_simplecache_url('js', 'chat/messaging');
 	elgg_register_simplecache_view('js/chat/messaging');
 	elgg_register_js('elgg.chat_messaging', $chat_messaging_js);

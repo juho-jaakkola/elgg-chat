@@ -17,6 +17,8 @@ $english = array(
 	'chat:messages' => 'Chat messages',
 	'chat:members' => 'Add members',
 	'chat:members:add' => 'Add members',
+	'chat:leave' => 'Leave',
+	'chat:leave:confirm' => 'Do you really want to leave this chat?',
 	'chat:members:more' => "+%s others",
 	'chat:unread_message' => '%s unread',
 	'chat:unread_messages' => '%s unread', // Plurar
@@ -39,6 +41,7 @@ $english = array(
 	'chat:message:deleted' => 'Chat deleted.',
 	'chat:message:members:saved' => 'Member added',
 	'chat:message:members:saved:plurar' => '%s members added',
+	'chat:message:left' => 'You have left the chat.',
 	'chat:error:cannot_save' => 'Cannot start chat.',
 	'chat:error:cannot_save_message' => 'Failed to save message.',
 	'chat:error:cannot_write_to_container' => 'Insufficient access to start a chat in group.',
@@ -48,6 +51,7 @@ $english = array(
 	'chat:error:missing:title' => 'Please enter title!',
 	'chat:error:missing:members' => 'No members selected!',
 	'chat:error:cannot_edit_post' => 'This chat may not exist or you may not have permissions to edit it.',
+	'chat:error:cannot_leave' => 'Failed to leave chat.',
 
 	// river
 	'river:create:object:chat' => '%s started a chat %s',
