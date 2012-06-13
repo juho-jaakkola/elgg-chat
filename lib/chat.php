@@ -130,6 +130,8 @@ function chat_edit ($guid = null) {
 function chat_view($guid = NULL) {
 	$return = array();
 
+	elgg_load_js('elgg.chat_messaging');
+
 	$chat = get_entity($guid);
 
 	// no header or tabs for viewing an individual chat

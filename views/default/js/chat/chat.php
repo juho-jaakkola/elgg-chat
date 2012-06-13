@@ -31,15 +31,11 @@ elgg.chat.markMessageRead = function() {
  * and popup module with the data.
  */
 elgg.chat.getMessages = function() {
-	var guid = elgg.get_logged_in_user_guid();
-	
-	var url = elgg.config.wwwroot + "mod/chat/notifier.php";
+	var url = elgg.normalize_url("mod/chat/notifier.php");
 	var messages = elgg.getJSON(
 		url,
 		{
 			success: function(data) {
-				console.log(data);
-				
 				// Add notifier to topbar menu item
 				if (data.count > 0) {
 					var notifier = '<span class="messages-new">' + data.count + '</span>';
@@ -64,7 +60,6 @@ elgg.chat.getMessages = function() {
  * @return {Object}
  */
 elgg.ui.chatMemberPopupHandler = function(hook, type, params, options) {
-
 	if (params.target.hasClass('elgg-chat-members')) {
 		options.my = 'left bottom';
 		options.at = 'right top';
@@ -84,9 +79,7 @@ elgg.ui.chatMemberPopupHandler = function(hook, type, params, options) {
  * @return {Object}
  */
 elgg.ui.chatMessagesPopupHandler = function(hook, type, params, options) {
-	
 	if (params.target.hasClass('elgg-chat-messages-preview')) {
-		//alert('messages-preview-in');
 		options.my = 'left top';
 		options.at = 'left bottom';
 		return options;

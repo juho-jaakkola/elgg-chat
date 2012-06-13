@@ -28,6 +28,11 @@ function chat_init() {
 	elgg_register_js('elgg.chat', $chat_js);
 	elgg_load_js('elgg.chat');
 
+	// register the chat's JavaScript
+	$chat_messaging_js = elgg_get_simplecache_url('js', 'chat/messaging');
+	elgg_register_simplecache_view('js/chat/messaging');
+	elgg_register_js('elgg.chat_messaging', $chat_messaging_js);
+
 	// Add custom CSS
 	elgg_extend_view('css', 'chat/css');
 
