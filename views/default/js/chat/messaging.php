@@ -44,7 +44,7 @@ elgg.chat.pagination = function (event) {
 	var guid = $('input:hidden[name=container_guid]').val();
 	var time_created = $('.elgg-chat-messages #timestamp').first().text();
 	var url = elgg.normalize_url("mod/chat/messages.php");
-	
+
 	var params = {
 		"guid": guid,
 		"time_created": time_created,
@@ -58,8 +58,17 @@ elgg.chat.pagination = function (event) {
 			success: function(data) {
 				if (data) {
 					var data = "<div class=\"hidden pagination\">" + data + "</div>";
+					
+					// Hide "more" link if we got less results than expected
+					var count = $('li.elgg-item', data).length;
+					if (count < 6) {
+						$('#chat-view-more').hide();
+					}
+					
 					$('.elgg-chat-messages > .elgg-list').prepend(data);
 					$('.pagination').first().show('highlight', null, 2000);
+				} else {
+					$('#chat-view-more').hide();
 				}
 			}
 		}

@@ -27,7 +27,6 @@ $pagination = get_input('pagination', false);
 if ($pagination) {
 	// Get old messages
 	$options['wheres'] = array("time_created < $time_created");
-	$options['order_by'] = 'e.time_created desc';
 	$options['limit'] = 6;
 } else {
 	// Get the newest messages
