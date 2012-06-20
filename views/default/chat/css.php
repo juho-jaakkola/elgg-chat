@@ -16,7 +16,8 @@
 }
 
 .elgg-chat-messages {
-	margin-top: 25px;
+	max-height: 400px;
+	overflow: auto;
 }
 
 .elgg-chat-unread {

@@ -11,20 +11,31 @@ $time_created = get_input('time_created');
 $guid = get_input('guid');
 
 $chat = get_entity($guid);
-
 if (!elgg_instanceof($chat, 'object', 'chat') || !$chat->isMember()) {
 	echo false;
 	exit;
 }
 
-$messages = elgg_get_entities(array(
+$options = array(
 	'type' => 'object',
 	'subtype' => 'chat_message',
 	'container_guid' => $guid,
 	'order_by' => 'e.time_created asc',
-	'limit' => false,
-	'wheres' => array("time_created > $time_created"),
-));
+);
+
+$pagination = get_input('pagination', false);
+if ($pagination) {
+	// Get old messages
+	$options['wheres'] = array("time_created < $time_created");
+	$options['order_by'] = 'e.time_created desc';
+	$options['limit'] = 6;
+} else {
+	// Get the newest messages
+	$options['wheres'] = array("time_created > $time_created");
+	$options['limit'] = false;
+}
+
+$messages = elgg_get_entities($options);
 
 $html = '';
 if ($messages) {
@@ -32,7 +43,7 @@ if ($messages) {
 
 	foreach ($messages as $message) {
 		$id = "elgg-object-{$message->getGUID()}";
-		$item = elgg_view_list_item($message, $vars);
+		$item = elgg_view_list_item($message);
 		$html .= "<li id=\"$id\" class=\"elgg-item\">$item</li>";
 	}
 }

@@ -10,7 +10,7 @@ $messages = elgg_get_entities(array(
 	'type' => 'object',
 	'subtype' => 'chat_message', 
 	'container_guid' => $chat->getGUID(),
-	'limit' => 8,
+	'limit' => 6,
 	'order_by' => 'e.time_created desc',
 	'pagination' => false,
 ));
@@ -24,9 +24,19 @@ $form_vars = array();
 
 $message_form = elgg_view_form('chat/message/save', $form_vars, $body_vars);
 
+$more_link = elgg_view('output/url', array(
+	'name' => 'chat-view-more',
+	'id' => 'chat-view-more',
+	'text' => elgg_echo('chat:more'),
+	'href' => '',
+));
+
 echo <<<MSG
-<div class="elgg-chat-messages">
-$message_list
-$message_form
+<div class="elgg-chat mtl">
+	$more_link
+	<div class="elgg-chat-messages pbm">
+		$message_list
+	</div>
+	$message_form
 </div>
 MSG;
