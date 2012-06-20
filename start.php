@@ -261,16 +261,16 @@ function chat_message_menu_setup ($hook, $type, $return, $params) {
  */
 function chat_notifier() {
 	if (elgg_is_logged_in()) {
-		$text = elgg_view_icon('speech-bubble-alt');
-		$text .= elgg_view('chat/preview');
-		$tooltip = elgg_echo("chat:messages");
+		// Add hidden popup module to topbar
+		elgg_extend_view('page/elements/topbar', 'chat/preview');
 
+		// This link opens the popup module
 		elgg_register_menu_item('topbar', array(
 			'name' => 'chat',
 			'href' => '#chat-messages-preview',
-			'text' => $text,
+			'text' => elgg_view_icon('speech-bubble-alt'),
 			'priority' => 600,
-			'title' => $tooltip,
+			'title' => elgg_echo("chat:messages"),
 			'rel' => 'popup',
 			'id' => 'chat-preview-link',
 		));
