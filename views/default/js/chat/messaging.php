@@ -13,14 +13,23 @@ elgg.chat.ready = function() {
  * Get unread messages via AJAX.
  */
 elgg.chat.getUnreadMessages = function() {
+	var time_created = $('.elgg-chat-messages #timestamp').last().text();
+	var guid = $('input:hidden[name=container_guid]').val();
+
 	var url = elgg.normalize_url("mod/chat/messages.php");
-	var messages = elgg.getJSON(
+	var params = {
+		"time_created": time_created,
+		"guid": guid
+	};
+		
+	var messages = elgg.get(
 		url,
 		{
+			data: params,
 			success: function(data) {
-				if (data.messages) {
+				if (data) {
 					// Append messages to discussion
-					$('.elgg-chat-messages > .elgg-list').append(data.messages);
+					$('.elgg-chat-messages > .elgg-list').append(data);
 				}
 			}
 		}

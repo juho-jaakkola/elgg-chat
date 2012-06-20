@@ -18,7 +18,9 @@ $not_read = elgg_get_annotations(array(
 	'guid' => $entity->getGUID(),
 ));
 
-$subtitle = "$owner_name $date";
+$time_created = "<span id=\"timestamp\" class=\"hidden\">$entity->time_created</span>";
+
+$subtitle = "$owner_name $date $time_created";
 
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $vars['entity'],

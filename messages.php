@@ -7,23 +7,34 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/engine/start.php');
 
 $user = elgg_get_logged_in_user_entity();
 
-$messages = elgg_get_entities_from_annotations(array(
+$time_created = get_input('time_created');
+$guid = get_input('guid');
+
+$chat = get_entity($guid);
+
+if (!elgg_instanceof($chat, 'object', 'chat') || !$chat->isMember()) {
+	echo false;
+	exit;
+}
+
+$messages = elgg_get_entities(array(
 	'type' => 'object',
 	'subtype' => 'chat_message',
-	'annotation_name' => 'unread',
-	'annotation_owner_guids' => $user->getGUID(),
+	'container_guid' => $guid,
 	'order_by' => 'e.time_created asc',
 	'limit' => false,
+	'wheres' => array("time_created > $time_created"),
 ));
 
 $html = '';
-foreach ($messages as $message) {
-	$id = "elgg-object-{$message->getGUID()}";
-	$item = elgg_view_list_item($message, $vars);
-	$html .= "<li id=\"$id\" class=\"elgg-item\">$item</li>";
+if ($messages) {
+	elgg_load_library('chat');
+
+	foreach ($messages as $message) {
+		$id = "elgg-object-{$message->getGUID()}";
+		$item = elgg_view_list_item($message, $vars);
+		$html .= "<li id=\"$id\" class=\"elgg-item\">$item</li>";
+	}
 }
 
-$result = new stdClass();
-$result->messages = $html;
-
-echo json_encode($result);
+echo $html;
