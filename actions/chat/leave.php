@@ -18,7 +18,7 @@ if (elgg_instanceof($chat, 'object', 'chat') && $chat->isMember()) {
 		register_error(elgg_echo('chat:error:cannot_leave'));
 	}
 } else {
-	register_error(elgg_echo('chat:error:post_not_found'));
+	register_error(elgg_echo('noaccess'));
 }
 
 forward(REFERER);

@@ -38,15 +38,15 @@ $english = array(
 
 	// messages
 	'chat:message:saved' => 'Chat saved',
-	'chat:message:message:saved' => 'Message saved',
-	'chat:message:deleted' => 'Chat deleted.',
+	'chat:message:deleted' => 'Chat deleted',
+	'chat:message:chat_message:saved' => 'Message saved',
+	'chat:message:chat_message:deleted' => 'Message deleted',
 	'chat:message:members:saved' => 'Member added',
 	'chat:message:members:saved:plurar' => '%s members added',
 	'chat:message:left' => 'You have left the chat.',
 	'chat:error:cannot_save' => 'Cannot start chat.',
 	'chat:error:cannot_save_message' => 'Failed to save message.',
 	'chat:error:cannot_write_to_container' => 'Insufficient access to start a chat in group.',
-	'chat:error:chat_not_found' => 'This chat has been removed, is invalid, or you do not have permission to view it.',
 	'chat:error:cannot_add_member' => 'Failed to add user %s to chat.',
 	'chat:error:cannot_delete' => 'Cannot delete chat.',
 	'chat:error:missing:title' => 'Please enter title!',

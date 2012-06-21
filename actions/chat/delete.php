@@ -16,7 +16,7 @@ if (elgg_instanceof($chat, 'object', 'chat') && $chat->canEdit()) {
 		register_error(elgg_echo('chat:error:cannot_delete'));
 	}
 } else {
-	register_error(elgg_echo('chat:error:post_not_found'));
+	register_error(elgg_echo('noaccess'));
 }
 
 forward(REFERER);

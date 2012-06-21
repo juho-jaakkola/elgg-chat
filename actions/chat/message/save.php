@@ -29,7 +29,7 @@ if ($guid) {
 	$entity = get_entity($guid);
 	
 	if (!elgg_instanceof($entity, 'object', 'chat_message') && $entity->canEdit()) {
-		register_error(elgg_echo('chat:error:message_not_found'));
+		register_error(elgg_echo('noaccess'));
 		forward(REFERER);
 	}
 } else {
@@ -68,5 +68,5 @@ if ($entity->save()) {
 	forward(REFERER);
 }
 
-system_message(elgg_echo('chat:message:message:saved'));
+system_message(elgg_echo('chat:message:chat_message:saved'));
 forward($entity->getContainerEntity()->getURL());

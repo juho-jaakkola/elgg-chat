@@ -28,7 +28,7 @@ if ($guid) {
 	if (elgg_instanceof($entity, 'object', 'chat') && $entity->canEdit()) {
 		// Everything ok
 	} else {
-		register_error(elgg_echo('chat:error:chat_not_found'));
+		register_error(elgg_echo('noaccess'));
 		forward(REFERER);
 	}
 } else {

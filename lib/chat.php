@@ -138,7 +138,7 @@ function chat_view($guid = NULL) {
 	$return['filter'] = '';
 
 	if (!elgg_instanceof($chat, 'object', 'chat') || !$chat->isMember() ) {
-		$return['content'] = elgg_echo('chat:error:chat_not_found');
+		$return['content'] = elgg_echo('noaccess');
 		return $return;
 	}
 
@@ -188,11 +188,12 @@ function chat_view($guid = NULL) {
  * @param int $guid GUID of a chat entity.
  */
 function chat_add_members($guid = null) {
-	if (!$guid) {
-		register_error('chat:error:notfound');
-	}
-
 	$chat = get_entity($guid);
+	
+	if (!elgg_instanceof($chat, 'object', 'chat') || !$chat->isMember() ) {
+		$return['content'] = elgg_echo('noaccess');
+		return $return;
+	}
 	
 	$form_vars = array('guid' => $guid);
 	$body_vars = array();
