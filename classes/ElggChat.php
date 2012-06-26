@@ -33,23 +33,17 @@ class ElggChat extends ElggObject {
 	 */
 	public function removeMember($user) {
 		$success = remove_entity_relationship($user->getGUID(), 'member', $this->getGUID());
-		
-		// Get unread messages
-		$messages = elgg_get_entities_from_annotations(array(
-			'type' => 'object',
-			'subtype' => 'chat_message',
-			'annotation_name' => 'unread',
-			'annotation_owner_guids' => $user->getGUID(),
+
+		$messages = elgg_get_entities_from_relationship(array(
+			'relationship' => 'unread',
+			'relationship_guid' => $user->getGUID(),
+			'inverse_relationship' => TRUE,
 			'container_guid' => $this->getGUID(),
 		));
 		
 		// Remove annotations from messages
 		foreach ($messages as $message) {
-			elgg_delete_annotations(array(
-				'annotation_name' => 'unread',
-				'annotation_owner_guids' => array($user->getGUID()),
-				'guid' => $message->getGUID(),
-			));
+			remove_entity_relationship($message->getGUID(), 'unread', $user->getGUID());
 		}
 		
 		// Remove unread_messages annotation from chat

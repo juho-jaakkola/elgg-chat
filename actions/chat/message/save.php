@@ -53,8 +53,8 @@ if ($entity->save()) {
 			continue;
 		}
 		
-		// annotate($name, $value, $access_id = ACCESS_PRIVATE, $owner_id = 0, $vartype = "")
-		$entity->annotate('unread', 1, ACCESS_PRIVATE, $member->getGUID());
+		// Mark the message as unread
+		$entity->addRelationship($member->getGUID(), 'unread');
 		
 		// Add number of unread messages also to the chat object
 		$chat->increaseUnreadMessageCount($member);

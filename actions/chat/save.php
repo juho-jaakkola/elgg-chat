@@ -93,8 +93,8 @@ if ($description) {
 				continue;
 			}
 			
-			// annotate($name, $value, $access_id = ACCESS_PRIVATE, $owner_id = 0, $vartype = "")
-			$message->annotate('unread', 1, ACCESS_PRIVATE, $member->getGUID());
+			// Mark the message as unread
+			$message->addRelationship($member->getGUID(), 'unread');
 			
 			// Add number of unread messages also to the chat object
 			$entity->increaseUnreadMessageCount($member);
