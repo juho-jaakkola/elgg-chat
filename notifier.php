@@ -71,17 +71,8 @@ if ($num_chats < 5) {
 
 $preview = elgg_view_entity_list($chats, array('full_view' => false));
 
-if ($preview) {
-	// Link to all chats
-	$all_chats_link = elgg_view('output/url', array(
-		'href' => 'chat/all',
-		'text' => elgg_echo('chat:view:all'),
-		'class' => '',
-	));
-	
-	$preview .= $all_chats_link;
-} else {
-	$preview .= elgg_echo('chat:none');
+if (empty($preview)) {
+	$preview = '<ul></ul>';
 }
 
 $result = new stdClass();

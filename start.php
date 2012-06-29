@@ -264,11 +264,14 @@ function chat_notifier() {
 		// Add hidden popup module to topbar
 		elgg_extend_view('page/elements/topbar', 'chat/preview');
 
+		$counter = '<span class="messages-new hidden"></span>';
+		$icon = elgg_view_icon('speech-bubble-alt');
+
 		// This link opens the popup module
 		elgg_register_menu_item('topbar', array(
-			'name' => 'chat',
+			'name' => 'chat-notifier',
 			'href' => '#chat-messages-preview',
-			'text' => elgg_view_icon('speech-bubble-alt'),
+			'text' => $icon .$counter,
 			'priority' => 600,
 			'title' => elgg_echo("chat:messages"),
 			'rel' => 'popup',

@@ -9,8 +9,8 @@ elgg.chat.init = function() {
 	if (elgg.is_logged_in()) {
 		setInterval(elgg.chat.markMessageRead, 2000);
 		
-		// @todo Should this also be called within intervals?
 		elgg.chat.getMessages();
+		setInterval(elgg.chat.getMessages, 10000);
 	}
 };
 
@@ -37,13 +37,25 @@ elgg.chat.getMessages = function() {
 		{
 			success: function(data) {
 				// Add notifier to topbar menu item
-				if (data.count > 0) {
-					var notifier = '<span class="messages-new">' + data.count + '</span>';
-					$('#chat-preview-link').append(notifier);
-				}
+				var counter = $('#chat-preview-link > .messages-new');
 				
-				// Add messages to popup module
-				$('#chat-messages-preview > .elgg-body').prepend(data.preview);
+				counter.text(data.count)
+				if (data.count > 0) {
+					counter.removeClass('hidden');
+				} else {
+					counter.addClass('hidden');
+				}
+
+				// Add content to popup module
+				$('#chat-messages-preview > .elgg-body > ul').replaceWith(data.preview);
+				
+				if ($('#chat-messages-preview > .elgg-body > ul').text()) {
+					$('#chat-messages-none').hide();
+					$('#chat-view-all').show();
+				} else {
+					$('#chat-messages-none').show();
+					$('#chat-view-all').hide();
+				}
 			}
 		}
 	);
