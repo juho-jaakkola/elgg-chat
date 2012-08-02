@@ -9,6 +9,7 @@ $english = array(
 	'chat:view:all' => 'View all chats',
 	'chat:chat' => 'Chat',
 	'item:object:chat' => 'Chat',
+	'item:object:chat_message' => 'Chat message',
 	'chat:none' => 'No chats',
 	'chat:more' => 'View more',
 
