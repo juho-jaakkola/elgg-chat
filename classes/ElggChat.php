@@ -19,7 +19,18 @@ class ElggChat extends ElggObject {
 	 * @param int $user_guid
 	 */
 	public function addMember($user_guid) {
-		return add_entity_relationship($user_guid, 'member', $this->getGUID());
+		$success = add_entity_relationship($user_guid, 'member', $this->getGUID());
+
+		// Send notifications
+		if ($success) {
+			$user = elgg_get_logged_in_user_entity();
+
+			$subject = elgg_echo('chat:notification:subject:newchat');
+			$body = elgg_echo('chat:notification:newchat', array($user->name, $this->title, $this->getURL()));
+			notify_user($user_guid, elgg_get_site_entity()->getGUID(), $subject, $body);
+		}
+
+		return $success;
 	}
 	
 	/**

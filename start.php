@@ -18,6 +18,7 @@ function chat_init() {
 	elgg_register_action("chat/delete", "$actionspath/delete.php");
 	elgg_register_action("chat/message/save", "$actionspath/message/save.php");
 	elgg_register_action("chat/message/delete", "$actionspath/message/delete.php");
+	elgg_register_action("chat/usersettings/save", "$actionspath/usersettings/save.php");
 
 	$libpath = elgg_get_plugins_path() . 'chat/lib/chat.php';
 	elgg_register_library('chat', $libpath);

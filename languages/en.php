@@ -57,16 +57,28 @@ $english = array(
 	// river
 	'river:create:object:chat' => '%s started a chat %s',
 
+	// user settings
+	'chat:usersettings:emailnotification' => 'Send email notification when I receive a new message',
+
 	// notifications
-	'chat:newpost' => 'A new chat post',
-	'chat:notification' =>
+	'chat:notification:subject:newpost' => 'A new chat message',
+	'chat:notification:newpost' =>
 '
-%s started a new chat and added you as a participant.
+%s posted a new message to the chat "%s".
 
-%s
-%s
+It says:
 
-Join the chat:
+"%s"
+
+View and send messages to the chat:
+%s
+',
+	'chat:notification:subject:newchat' => 'A new chat',
+	'chat:notification:newchat' =>
+'
+%s has added you to the chat "%s".
+
+View and send messages to the chat:
 %s
 ',
 
