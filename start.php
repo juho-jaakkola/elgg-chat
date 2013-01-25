@@ -177,7 +177,14 @@ function chat_entity_menu_setup ($hook, $type, $return, $params) {
 
 	$num_messages = $entity->getUnreadMessagesCount();
 	if ($num_messages) {
-		$text = elgg_echo('chat:unread_message', array($num_messages));
+		if ($num_messages == 1) {
+			$string = 'chat:unread_message'; // Singular
+		} else {
+			$string = 'chat:unread_messages'; // Plural
+		}
+
+		$text = elgg_echo($string, array($num_messages));
+
 		$options = array(
 			'name' => 'unread_mesages',
 			'text' => $text,
