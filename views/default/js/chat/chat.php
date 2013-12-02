@@ -11,8 +11,7 @@ elgg.chat.init = function() {
 	if (elgg.is_logged_in()) {
 		setInterval(elgg.chat.markMessageRead, 2000);
 
-		elgg.chat.getMessages();
-		setInterval(elgg.chat.getMessages, 10000);
+		$('#chat-preview-link').bind('click', elgg.chat.getMessages);
 	}
 };
 
@@ -39,7 +38,7 @@ elgg.chat.getMessages = function() {
 		{
 			success: function(data) {
 				// Add notifier to topbar menu item
-				var counter = $('#chat-preview-link > .messages-new');
+				var counter = $('#chat-preview-link > #chat-messages-new');
 
 				counter.text(data.count)
 				if (data.count > 0) {

@@ -272,14 +272,18 @@ function chat_notifier() {
 		// Add hidden popup module to topbar
 		elgg_extend_view('page/elements/topbar', 'chat/preview');
 
-		$counter = '<span class="messages-new hidden"></span>';
-		$icon = elgg_view_icon('speech-bubble-alt');
+		$text = elgg_view_icon('speech-bubble-alt');
+
+		$count = chat_count_unread_messages();
+		if ($count) {
+			$text .= "<span id=\"chat-messages-new\">$count</span>";
+		}
 
 		// This link opens the popup module
 		elgg_register_menu_item('topbar', array(
 			'name' => 'chat-notifier',
 			'href' => '#chat-messages-preview',
-			'text' => $icon .$counter,
+			'text' => $text,
 			'priority' => 600,
 			'title' => elgg_echo("chat:messages"),
 			'rel' => 'popup',
@@ -315,18 +319,16 @@ function chat_get_unread_chats($options = array()) {
  * @return mixed False on error, int if success.
  */
 function chat_count_unread_messages() {
-	$user = elgg_get_logged_in_user_entity();
+	$user_guid = elgg_get_logged_in_user_guid();
 
-	$options = array(
+	return elgg_get_entities_from_relationship(array(
 		'type' => 'object',
 		'subtype' => 'chat_message',
-		'annotation_names' => 'unread',
-		'annotation_values' => 1,
-		'annotation_owner_guids' => $user->getGUID(),
 		'count' => true,
-	);
-
-	return elgg_get_entities_from_annotations($options);
+		'relationship' => 'unread',
+		'relationship_guid' => $user_guid,
+		'inverse_relationship' => true,
+	));
 }
 
 /**
