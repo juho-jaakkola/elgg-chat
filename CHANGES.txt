@@ -1,0 +1,9 @@
+Version 1.8.1 (2013-)
+
+ Enhancements:
+  * To reduce server overhead, new messages are checked only on page load and
+    on demand instead of automatically every 10 seconds
+
+ Bugfixes:
+  * Prevents unwanted items in chat menu and chat message menu
+  * Does not depend on messages plugin css anymore
