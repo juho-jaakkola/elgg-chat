@@ -39,7 +39,8 @@ function chat_init() {
 
 	// Hook to customize user hover menu
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'chat_user_hover_menu');
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup');
+	// Register on low priority so it's possible to remove items added by other plugins
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup', 600);
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup', 600);
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
@@ -195,15 +196,16 @@ function chat_entity_menu_setup ($hook, $type, $return, $params) {
 		$return[] = ElggMenuItem::factory($options);
 	}
 
-	$remove = array('access', 'likes', 'comment_tracker');
-	if (elgg_in_context('chat_preview')) {
-		$remove[] = 'edit';
-		$remove[] = 'delete';
+	// Use white list to prevent unwanted menu items
+	$allow = array('unread_mesages');
+	if (!elgg_in_context('chat_preview')) {
+		$allow[] = 'edit';
+		$allow[] = 'delete';
 	}
 
-	// Remove items from menu depending on situation
+	// Remove unwanted menu items
 	foreach ($return as $index => $item) {
-		if (in_array($item->getName(), $remove)) {
+		if (!in_array($item->getName(), $allow)) {
 			unset($return[$index]);
 		}
 	}
