@@ -277,6 +277,9 @@ function chat_notifier() {
 		$count = chat_count_unread_messages();
 		if ($count) {
 			$text .= "<span id=\"chat-messages-new\">$count</span>";
+		} else {
+			// Add a hidden element so value can be added using XHR
+			$text .= "<span id=\"chat-messages-new hidden\"></span>";
 		}
 
 		// This link opens the popup module
