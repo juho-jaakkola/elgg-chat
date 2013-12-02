@@ -3,12 +3,14 @@
  * Chat JavaScript extension for elgg.js
  */
 ?>
+/* <script> */
+
 elgg.provide('elgg.chat');
 
 elgg.chat.init = function() {
 	if (elgg.is_logged_in()) {
 		setInterval(elgg.chat.markMessageRead, 2000);
-		
+
 		elgg.chat.getMessages();
 		setInterval(elgg.chat.getMessages, 10000);
 	}
@@ -25,7 +27,7 @@ elgg.chat.markMessageRead = function() {
 
 /**
  * Get messages via AJAX.
- * 
+ *
  * Get both the number of unread messages and a preview list
  * of the latest messages. Then populate the topbar menu item
  * and popup module with the data.
@@ -38,7 +40,7 @@ elgg.chat.getMessages = function() {
 			success: function(data) {
 				// Add notifier to topbar menu item
 				var counter = $('#chat-preview-link > .messages-new');
-				
+
 				counter.text(data.count)
 				if (data.count > 0) {
 					counter.removeClass('hidden');
@@ -48,7 +50,7 @@ elgg.chat.getMessages = function() {
 
 				// Add content to popup module
 				$('#chat-messages-preview > .elgg-body > ul').replaceWith(data.preview);
-				
+
 				if ($('#chat-messages-preview > .elgg-body > ul').text()) {
 					$('#chat-messages-none').hide();
 					$('#chat-view-all').show();

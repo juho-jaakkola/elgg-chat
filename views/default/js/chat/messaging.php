@@ -3,11 +3,12 @@
  * Gets the unread chat messages via AJAX.
  */
 ?>
+/* <script> */
 
 elgg.chat.ready = function() {
 	// Get unread messages every 10 seconds
 	setInterval(elgg.chat.getUnreadMessages, 10000);
-	
+
 	$('#chat-view-more').bind('click', elgg.chat.pagination);
 };
 
@@ -58,13 +59,13 @@ elgg.chat.pagination = function (event) {
 			success: function(data) {
 				if (data) {
 					var data = "<div class=\"hidden pagination\">" + data + "</div>";
-					
+
 					// Hide "more" link if we got less results than expected
 					var count = $('li.elgg-item', data).length;
 					if (count < 6) {
 						$('#chat-view-more').hide();
 					}
-					
+
 					$('.elgg-chat-messages > .elgg-list').prepend(data);
 					$('.pagination').first().show('highlight', null, 2000);
 				} else {
