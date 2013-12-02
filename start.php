@@ -40,7 +40,8 @@ function chat_init() {
 	// Hook to customize user hover menu
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'chat_user_hover_menu');
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup');
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup');
+	// Register on low priority so it's possible to remove items added by other plugins
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup', 600);
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
 
 	elgg_register_event_handler('pagesetup', 'system', 'chat_page_setup');
@@ -194,7 +195,7 @@ function chat_entity_menu_setup ($hook, $type, $return, $params) {
 		$return[] = ElggMenuItem::factory($options);
 	}
 
-	$remove = array('access', 'likes');
+	$remove = array('access', 'likes', 'comment_tracker');
 	if (elgg_in_context('chat_preview')) {
 		$remove[] = 'edit';
 		$remove[] = 'delete';
@@ -224,7 +225,8 @@ function chat_message_menu_setup ($hook, $type, $return, $params) {
 		return $return;
 	}
 
-	$remove = array('access');
+	// We don't want other plugins to add new menu items so we use a white list
+	$allow = array('likes');
 
 	$user = elgg_get_logged_in_user_entity();
 
@@ -249,14 +251,13 @@ function chat_message_menu_setup ($hook, $type, $return, $params) {
 		);
 		$return[] = ElggMenuItem::factory($options);
 
-	} else {
-		$remove[] = 'edit';
-		$remove[] = 'delete';
+		$allow[] = 'edit';
+		$allow[] = 'delete';
 	}
 
-	// Remove items from menu depending on situation
+	// Remove unwanted menu items
 	foreach ($return as $index => $item) {
-		if (in_array($item->getName(), $remove)) {
+		if (!in_array($item->getName(), $allow)) {
 			unset($return[$index]);
 		}
 	}
