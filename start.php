@@ -4,13 +4,13 @@
  *
  * @package Chat
  */
- 
+
 /**
  * Initialize the plugin.
  */
 function chat_init() {
 	global $CONFIG;
-	
+
 	$actionspath = $CONFIG->pluginspath . "chat/actions/chat";
 	elgg_register_action("chat/save", "$actionspath/save.php");
 	elgg_register_action("chat/addmembers", "$actionspath/addmembers.php");
@@ -45,22 +45,22 @@ function chat_init() {
 
 	elgg_register_event_handler('pagesetup', 'system', 'chat_page_setup');
 	elgg_register_event_handler('pagesetup', 'system', 'chat_notifier');
-	
+
 	elgg_register_page_handler('chat', 'chat_page_handler');
-	
+
 	// override the default url to view a chat object
 	elgg_register_entity_url_handler('object', 'chat', 'chat_url_handler');
 }
 
 /**
  * Dispatche chat pages.
- * 
+ *
  * @param array $page
  * @return bool
  */
 function chat_page_handler ($page) {
 	elgg_load_library('chat');
-	
+
 	if (!isset($page[0])) {
 		elgg_push_breadcrumb(elgg_echo('chat'));
 		$page[0] = 'all';
@@ -97,7 +97,7 @@ function chat_page_handler ($page) {
 			$params = chat_all();
 			break;
 		}
-	
+
 	$body = elgg_view_layout('content', $params);
 	echo elgg_view_page('test', $body);
 	return true;
@@ -131,17 +131,17 @@ function chat_user_hover_menu ($hook, $type, $return, $params) {
 
 /**
  * Add title button for adding more people to a chat.
- * 
+ *
  * All members of the chat are allowed to add people.
- * 
+ *
  * @todo Is it possible to use userpicker through lightbox?
- * 
+ *
  * @param obj $entity ElggChat object
  */
 function chat_register_addusers_button($entity) {
 	if (elgg_is_logged_in()) {
 		$user = elgg_get_logged_in_user_entity();
-			
+
 		if ($user && $entity->isMember()) {
 			$guid = $entity->getGUID();
 			elgg_register_menu_item('title', array(
@@ -151,11 +151,11 @@ function chat_register_addusers_button($entity) {
 				'link_class' => 'elgg-button elgg-button-action', // elgg-lightbox
 			));
 		}
-		
+
 		/*
 		elgg_load_js('lightbox');
 		elgg_load_css('lightbox');
-		
+
 		elgg_load_js('elgg.userpicker');
 		*/
 	}
@@ -219,18 +219,18 @@ function chat_message_menu_setup ($hook, $type, $return, $params) {
 	}
 
 	$entity = $params['entity'];
-	
+
 	if ($entity->getSubtype() !== 'chat_message') {
 		return $return;
 	}
 
 	$remove = array('access');
-	
+
 	$user = elgg_get_logged_in_user_entity();
 
 	if ($entity->getOwnerGUID() == $user->getGUID() || $user->isAdmin()) {
 		$guid = $entity->getGUID();
-		
+
 		$options = array(
 			'name' => 'edit',
 			'text' => elgg_echo('edit'),
@@ -248,7 +248,7 @@ function chat_message_menu_setup ($hook, $type, $return, $params) {
 			'is_action' => true,
 		);
 		$return[] = ElggMenuItem::factory($options);
-	
+
 	} else {
 		$remove[] = 'edit';
 		$remove[] = 'delete';
@@ -290,12 +290,12 @@ function chat_notifier() {
 
 /**
  * Get all chats with unread messages.
- * 
+ *
  * @param array $options See elgg_get_entities_from_annotations().
  */
 function chat_get_unread_chats($options = array()) {
 	$user = elgg_get_logged_in_user_entity();
-	
+
 	$defaults = array(
 		'type' => 'object',
 		'subtype' => 'chat',
@@ -303,15 +303,15 @@ function chat_get_unread_chats($options = array()) {
 		'annotation_owner_guids' => $user->getGUID(),
 		'count' => false,
 	);
-	
+
 	$options = array_merge($defaults, $options);
-	
+
 	return elgg_get_entities_from_annotations($options);
 }
 
 /**
  * Get the number of all unread chat messages.
- * 
+ *
  * @return mixed False on error, int if success.
  */
 function chat_count_unread_messages() {
@@ -325,7 +325,7 @@ function chat_count_unread_messages() {
 		'annotation_owner_guids' => $user->getGUID(),
 		'count' => true,
 	);
-	
+
 	return elgg_get_entities_from_annotations($options);
 }
 
