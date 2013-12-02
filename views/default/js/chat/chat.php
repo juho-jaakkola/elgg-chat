@@ -9,19 +9,8 @@ elgg.provide('elgg.chat');
 
 elgg.chat.init = function() {
 	if (elgg.is_logged_in()) {
-		setInterval(elgg.chat.markMessageRead, 2000);
-
 		$('#chat-preview-link').bind('click', elgg.chat.getMessages);
 	}
-};
-
-/**
- * Change the color of new messages.
- */
-elgg.chat.markMessageRead = function() {
-	var activeMessages = $('.elgg-chat-messages .elgg-chat-unread');
-	var message = $(activeMessages[0]);
-	message.animate({backgroundColor: '#ffffff'}, 1000).removeClass('elgg-chat-unread');
 };
 
 /**

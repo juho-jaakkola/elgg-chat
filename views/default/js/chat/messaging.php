@@ -9,6 +9,10 @@ elgg.chat.ready = function() {
 	// Get unread messages every 10 seconds
 	setInterval(elgg.chat.getUnreadMessages, 10000);
 
+	// Mark unread messages read every two seconds
+	// TODO Run this only when new messages have been added via XHR
+	setInterval(elgg.chat.markMessageRead, 2000);
+
 	$('#chat-view-more').bind('click', elgg.chat.pagination);
 };
 
@@ -38,6 +42,15 @@ elgg.chat.getUnreadMessages = function() {
 		}
 	);
 }
+
+/**
+ * Change the color of new messages.
+ */
+elgg.chat.markMessageRead = function() {
+	var activeMessages = $('.elgg-chat-messages .elgg-chat-unread');
+	var message = $(activeMessages[0]);
+	message.animate({backgroundColor: '#ffffff'}, 1000).removeClass('elgg-chat-unread');
+};
 
 elgg.chat.pagination = function (event) {
 	event.preventDefault();
