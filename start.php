@@ -340,17 +340,18 @@ function chat_count_unread_messages() {
 /**
  * Allow chat members to add messages to chat.
  */
-function chat_permissions_override ($hook, $type, $return, $params) {
+function chat_permissions_override($hook, $type, $return, $params) {
 	$entity = $params['entity'];
+	$user = $params['user'];
 
-	// Allow full access to administrators
-	if (elgg_is_admin_logged_in()) {
-		return true;
-	}
-
-	// Allow chat members to add messages to chat
 	if (elgg_instanceof($entity, 'object', 'chat')) {
-		if ($entity->isMember() && elgg_in_context('chat_message')) {
+		// Allow full access to administrators
+		if ($user->isAdmin()) {
+			return true;
+		}
+
+		// Allow chat members to add messages to chat
+		if ($entity->isMember($user) && elgg_in_context('chat_message')) {
 			return true;
 		}
 	}
