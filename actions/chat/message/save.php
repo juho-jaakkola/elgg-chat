@@ -27,7 +27,7 @@ $user = elgg_get_logged_in_user_entity();
 
 if ($guid) {
 	$entity = get_entity($guid);
-	
+
 	if (!elgg_instanceof($entity, 'object', 'chat_message') && $entity->canEdit()) {
 		register_error(elgg_echo('noaccess'));
 		forward(REFERER);
@@ -43,22 +43,22 @@ $entity->description = $message;
 
 if ($entity->save()) {
 	elgg_clear_sticky_form('chat_message');
-	
+
 	$chat = $entity->getContainerEntity();
-	
+
 	$members = $chat->getMemberEntities();
 	foreach ($members as $member) {
 		// No unread annotations for user's own message
 		if ($member->getGUID() === $user->getGUID()) {
 			continue;
 		}
-		
+
 		// Mark the message as unread
 		$entity->addRelationship($member->getGUID(), 'unread');
-		
+
 		// Add number of unread messages also to the chat object
 		$chat->increaseUnreadMessageCount($member);
-		
+
 		// Send email notification if user has enabled it
 		$email_notification = elgg_get_plugin_user_setting('email_notification', $member->getGUID(), 'chat');
 		if ($email_notification == 'on') {
@@ -67,7 +67,7 @@ if ($entity->save()) {
 			notify_user($member->getGUID(), elgg_get_site_entity()->getGUID(), $subject, $body, null, 'email');
 		}
 	}
-	
+
 	// @todo Should we update the container chat so we can order chats by
 	// time_updated? Or is it possible to order by "unread_messages" annotation?
 	//$chat->time_updated = time();

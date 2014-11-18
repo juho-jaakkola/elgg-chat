@@ -24,7 +24,7 @@ if (empty($members)) {
 
 if ($guid) {
 	$entity = get_entity($guid);
-	
+
 	if (elgg_instanceof($entity, 'object', 'chat') && $entity->canEdit()) {
 		// Everything ok
 	} else {
@@ -61,7 +61,7 @@ foreach ($members as $member_guid) {
 	if (in_array($member_guid, $old_member_guids)) {
 		continue;
 	}
-	
+
 	// Add relationship "user is a member of this chat".
 	if (!$entity->addMember($member_guid)) {
 		$member = get_entity($member_guid);
@@ -84,7 +84,7 @@ if ($description) {
 	$message->access_id = ACCESS_LOGGED_IN;
 	$message->container_guid = $entity->getGUID();
 	$message->description = $description;
-	
+
 	if ($message->save()) {
 		$members = $entity->getMemberEntities();
 		foreach ($members as $member) {
@@ -92,10 +92,10 @@ if ($description) {
 			if ($member->getGUID() === $user->getGUID()) {
 				continue;
 			}
-			
+
 			// Mark the message as unread
 			$message->addRelationship($member->getGUID(), 'unread');
-			
+
 			// Add number of unread messages also to the chat object
 			$entity->increaseUnreadMessageCount($member);
 		}

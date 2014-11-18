@@ -45,7 +45,7 @@ if ($messages) {
 		$item = elgg_view_list_item($message);
 		$html .= "<li id=\"$id\" class=\"elgg-item\">$item</li>";
 	}
-	
+
 	$chat->resetUnreadMessageCount();
 }
 

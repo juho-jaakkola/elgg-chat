@@ -4,12 +4,12 @@
  *
  * Views a comma separated list viewing "+5 more" link
  * which opens a list of all members in a popup module.
- *  
+ *
  * @uses $vars['entity']
  */
 
 $chat = elgg_extract('entity', $vars);
- 
+
 // Get chat members
 $members = $chat->getMemberEntities();
 
@@ -37,7 +37,7 @@ if ($num_more_members) {
 		'href' => "#members-$guid",
 	));
 	$member_names[] = $more_link;
-	
+
 	$list = "<div class='elgg-module elgg-module-popup elgg-chat-members hidden clearfix' id='members-$guid'>";
 	$list .= elgg_view_entity_list($members);
 	$list .= "</div>";

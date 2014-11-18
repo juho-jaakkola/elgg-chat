@@ -12,13 +12,13 @@
  */
 function chat_all ($container_guid = null) {
 	elgg_register_title_button();
-	
+
 	$user_guid = elgg_get_logged_in_user_guid();
-	
+
 	if ($container_guid == $user_guid) {
 		// Chats started by the user
 		$params['filter_context'] = 'mine';
-		
+
 		$chats = elgg_list_entities(array(
 			'type' => 'object',
 			'subtype' => 'chat',
@@ -53,7 +53,7 @@ function chat_all ($container_guid = null) {
 
 /**
  * List friends' chats that user is member of.
- * 
+ *
  * @param int $user_guid GUID of the user
  * @return array
  */
@@ -113,11 +113,11 @@ function chat_edit ($guid = null) {
 		$form_vars = chat_prepare_form_vars();
 		$params['title'] = elgg_echo('chat:add');
 	}
-	
+
 	$form = elgg_view_form('chat/save', $vars, $form_vars);
 	$params['content'] = $form;
 	$params['filter'] = '';
-	
+
 	return $params;
 }
 
@@ -184,27 +184,27 @@ function chat_view($guid = NULL) {
 
 /**
  * View members of the chat as a form with an userpicker.
- * 
+ *
  * @param int $guid GUID of a chat entity.
  */
 function chat_add_members($guid = null) {
 	$chat = get_entity($guid);
-	
+
 	if (!elgg_instanceof($chat, 'object', 'chat') || !$chat->isMember() ) {
 		$return['content'] = elgg_echo('noaccess');
 		return $return;
 	}
-	
+
 	$form_vars = array('guid' => $guid);
 	$body_vars = array();
 	$form = elgg_view_form('chat/addmembers', $body_vars, $form_vars);
-	
+
 	$return = array(
 		'title' => elgg_echo('chat:members'),
 		'content' => $form,
 		'filter' => '',
 	);
-	
+
 	return $return;
 }
 
@@ -241,11 +241,11 @@ function chat_prepare_form_vars($chat = NULL) {
 		foreach ($sticky_values as $key => $value) {
 			$values[$key] = $value;
 		}
-		
+
 		// This is not a property of chat so add separately
 		$values['description'] = $sticky_values['message'];
 	}
-	
+
 	elgg_clear_sticky_form('chat');
 
 	return $values;
@@ -280,7 +280,7 @@ function chat_prepare_message_form_vars($message = NULL) {
 			$values[$key] = $value;
 		}
 	}
-	
+
 	elgg_clear_sticky_form('chat_message');
 
 	return $values;

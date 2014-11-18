@@ -8,7 +8,7 @@ $chat = elgg_extract('entity', $vars);
  */
 $messages = elgg_get_entities(array(
 	'type' => 'object',
-	'subtype' => 'chat_message', 
+	'subtype' => 'chat_message',
 	'container_guid' => $chat->getGUID(),
 	'limit' => 6,
 	'order_by' => 'e.time_created desc',

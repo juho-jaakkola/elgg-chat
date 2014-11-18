@@ -15,7 +15,7 @@ class ElggChat extends ElggObject {
 
 	/**
 	 * Add user as member of the chat.
-	 * 
+	 *
 	 * @param int $user_guid
 	 */
 	public function addMember($user_guid) {
@@ -32,14 +32,14 @@ class ElggChat extends ElggObject {
 
 		return $success;
 	}
-	
+
 	/**
 	 * Remove user from chat
-	 * 
+	 *
 	 * - Delete the relationship
 	 * - Delete annotations from the messages
 	 * - Delete annotations from the chat
-	 * 
+	 *
 	 * @param $user
 	 */
 	public function removeMember($user) {
@@ -51,21 +51,21 @@ class ElggChat extends ElggObject {
 			'inverse_relationship' => TRUE,
 			'container_guid' => $this->getGUID(),
 		));
-		
+
 		// Remove annotations from messages
 		foreach ($messages as $message) {
 			remove_entity_relationship($message->getGUID(), 'unread', $user->getGUID());
 		}
-		
+
 		// Remove unread_messages annotation from chat
 		$this->resetUnreadMessageCount($user);
-		
+
 		return $success;
 	}
 
 	/**
 	 * Get guids of users participating the chat.
-	 * 
+	 *
 	 * @return array $member_guids Array of user guids
 	 */
 	public function getMemberGuids() {
@@ -78,7 +78,7 @@ class ElggChat extends ElggObject {
 
 	/**
 	 * Get user entities that are participating the chat.
-	 * 
+	 *
 	 * @return array $members Array of ElggUser objects
 	 */
 	public function getMemberEntities($options = array()) {
@@ -94,10 +94,10 @@ class ElggChat extends ElggObject {
 
 		return elgg_get_entities_from_relationship($options);
 	}
-	
+
 	/**
 	 * Check whether user is member of the chat.
-	 * 
+	 *
 	 * @param object $user
 	 * @return boolean
 	 */
@@ -105,13 +105,13 @@ class ElggChat extends ElggObject {
 		if (!$user) {
 			$user = elgg_get_logged_in_user_entity();
 		}
-		
+
 		return in_array($user->getGUID(), $this->getMemberGuids());
 	}
-	
+
 	/**
 	 * Get number of messages user hasn't read yet.
-	 * 
+	 *
 	 * @param array $options
 	 * @param obj $entity If true, returns the object instead of int.
 	 * @return array $num_messages
@@ -121,16 +121,16 @@ class ElggChat extends ElggObject {
 			'annotation_names' => 'unread_messages',
 			'guid' => $this->getGUID(),
 		);
-		
+
 		if (!isset($options['annotation_owner_guids'])) {
 			$user = elgg_get_logged_in_user_entity();
 			$defaults['annotation_owner_guids'] = $user->getGUID();
 		}
-		
+
 		$options = array_merge($defaults, $options);
-		
+
 		$annotations = elgg_get_annotations($options);
-		
+
 		if (isset($annotations[0])) {
 			if ($entity) {
 				$num_messages = $annotations[0];
@@ -140,13 +140,13 @@ class ElggChat extends ElggObject {
 		} else {
 			$num_messages = 0;
 		}
-		
+
 		return $num_messages;
 	}
-	
+
 	/**
 	 * Increase the number of unread messages for an user.
-	 * 
+	 *
 	 * @param obj $user
 	 * @return boolean
 	 */
@@ -154,7 +154,7 @@ class ElggChat extends ElggObject {
 		// Increase the number of unread messages under the chat
 		$options = array('annotation_owner_guids' => $user->getGUID());
 		$num_unread = $this->getUnreadMessagesCount($options, true);
-		
+
 		if ($num_unread) {
 			// Increase the value of annotation
 			$num_unread->value = $num_unread->value +1;
@@ -167,7 +167,7 @@ class ElggChat extends ElggObject {
 
 	/**
 	 * Reset the number of unread messages for an user.
-	 * 
+	 *
 	 * @param obj $user
 	 * @return boolean
 	 */
@@ -175,7 +175,7 @@ class ElggChat extends ElggObject {
 		if (!$user) {
 			$user = elgg_get_logged_in_user_entity();
 		}
-		
+
 		return elgg_delete_annotations(array(
 			'annotation_owner_guids' => $user->getGUID(),
 			'annotation_names' => 'unread_messages',

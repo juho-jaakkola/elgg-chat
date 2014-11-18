@@ -29,7 +29,7 @@ if (elgg_in_context('widgets')) {
 if ($full) {
 	// User is viewing the chat so reset the number of unread messages.
 	$chat->resetUnreadMessageCount();
-	
+
 	// The actual chat is not shown, just the messages.
 	// @todo Should the chat creation time be visible?
 	echo "<div class=\"elgg-subtext\">$subtitle</div>";
@@ -41,7 +41,7 @@ if ($full) {
 		'metadata' => $metadata,
 		'subtitle' => $subtitle,
 	);
-	
+
 	// View short title in message preview
 	if (elgg_in_context('chat_preview')) {
 		$params['title'] = elgg_view('output/url', array(
@@ -49,7 +49,7 @@ if ($full) {
 			'href' => $chat->getURL(),
 		));
 	}
-	
+
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 

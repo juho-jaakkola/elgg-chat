@@ -1,7 +1,7 @@
 <?php
 /**
  * Ajax endpoint for chat notifier.
- * 
+ *
  * Provides the number of unread messages and a list of
  * latest messages. These are then used to populate the
  * topbar menu item and popup module.
@@ -13,7 +13,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/engine/start.php');
  * @todo Could we just make a straight query that checks how many
  * "unread_messages" annotations the user has? Is it possible
  * to get also already read messages with the same query?
- */ 
+ */
 
 // Do not view edit/delete
 elgg_push_context('chat_preview');
@@ -57,15 +57,15 @@ if ($num_chats < 5) {
 		'inverse_relationship' => false,
 		'limit' => $limit,
 	);
-	
+
 	// Do not get the chats that were fetched earlier
 	if ($num_chats) {
 		$guids = implode(',', $guids);
 		$options['wheres'] = array("e.guid NOT IN ($guids)");
 	}
-	
+
 	$more_chats = elgg_get_entities_from_relationship($options);
-	
+
 	$chats = array_merge($chats, $more_chats);
 }
 

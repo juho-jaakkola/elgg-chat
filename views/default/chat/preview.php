@@ -24,7 +24,7 @@ $all_chats_link = elgg_view('output/url', array(
 	'id' => 'chat-view-all',
 ));
 
-$none_message = elgg_echo('chat:none'); 
+$none_message = elgg_echo('chat:none');
 
 $body = <<<HTML
 	<ul></ul>

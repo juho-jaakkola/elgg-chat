@@ -40,7 +40,7 @@ $not_read = check_entity_relationship($entity->getGUID(), 'unread', $user->getGU
 if ($not_read) {
 	// Additional class to notify that message hasn't been read before.
 	$vars['class'] = 'elgg-chat-unread';
-	
+
 	// Mark message read
 	remove_entity_relationship($entity->getGUID(), 'unread', $user->getGUID());
 }
