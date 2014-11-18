@@ -45,7 +45,6 @@ function chat_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup', 600);
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
 
-	elgg_register_event_handler('pagesetup', 'system', 'chat_page_setup');
 	elgg_register_event_handler('pagesetup', 'system', 'chat_notifier');
 
 	elgg_register_page_handler('chat', 'chat_page_handler');
