@@ -23,16 +23,7 @@ function chat_init() {
 	$libpath = elgg_get_plugins_path() . 'chat/lib/chat.php';
 	elgg_register_library('chat', $libpath);
 
-	// Register the chat's JavaScript
-	$chat_js = elgg_get_simplecache_url('js', 'chat/chat');
-	elgg_register_simplecache_view('js/chat/chat');
-	elgg_register_js('elgg.chat', $chat_js);
-	elgg_load_js('elgg.chat');
-
-	// Register the chat's messaging JavaScript
-	$chat_messaging_js = elgg_get_simplecache_url('js', 'chat/messaging');
-	elgg_register_simplecache_view('js/chat/messaging');
-	elgg_register_js('elgg.chat_messaging', $chat_messaging_js);
+	elgg_require_js('chat/chat');
 
 	// Add custom CSS
 	elgg_extend_view('css', 'chat/css');

@@ -130,7 +130,7 @@ function chat_edit ($guid = null) {
 function chat_view($guid = NULL) {
 	$return = array();
 
-	elgg_load_js('elgg.chat_messaging');
+	elgg_require_js('chat/messaging');
 
 	$chat = get_entity($guid);
 
