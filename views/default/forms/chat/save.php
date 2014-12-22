@@ -24,7 +24,6 @@ if (!$vars['guid']) {
 
 $users_label = elgg_echo('chat:members:manage');
 $users_input = elgg_view('input/userpicker', array(
-	'name' => 'users',
 	'value' => $vars['members'],
 ));
 
