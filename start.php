@@ -28,8 +28,6 @@ function chat_init() {
 	// Add custom CSS
 	elgg_extend_view('css', 'chat/css');
 
-	// Hook to customize user hover menu
-	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'chat_user_hover_menu');
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup', 600);
 	// Register on low priority so it's possible to remove items added by other plugins
@@ -116,15 +114,6 @@ function chat_url_handler($entity) {
 	$friendly_title = elgg_get_friendly_title($entity->title);
 
 	return "chat/view/{$entity->guid}/$friendly_title";
-}
-
-/**
- * Remove possiblity to edit profile and avatar from facebook accounts.
- */
-function chat_user_hover_menu ($hook, $type, $return, $params) {
-	$user = $params['entity'];
-
-	return $return;
 }
 
 /**
