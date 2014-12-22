@@ -25,13 +25,13 @@ define(function(require) {
 			{
 				success: function(data) {
 					// Add notifier to topbar menu item
-					var counter = $('#chat-preview-link > #chat-messages-new');
+					var counter = $('#chat-messages-new');
 
 					counter.text(data.count);
 					if (data.count > 0) {
-						counter.removeClass('hidden');
+						counter.removeAttr('hidden');
 					} else {
-						counter.addClass('hidden');
+						counter.attr('hidden', '');
 					}
 
 					// Add content to popup module
