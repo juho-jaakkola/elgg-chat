@@ -33,13 +33,11 @@ function chat_init() {
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup', 600);
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'chat_url_handler');
 
 	elgg_register_event_handler('pagesetup', 'system', 'chat_notifier');
 
 	elgg_register_page_handler('chat', 'chat_page_handler');
-
-	// override the default url to view a chat object
-	elgg_register_entity_url_handler('object', 'chat', 'chat_url_handler');
 }
 
 /**
@@ -102,18 +100,22 @@ function chat_page_handler ($page) {
 /**
  * Format and return the URL for chats.
  *
- * @param ElggObject $entity Chat object
- * @return string URL of chat.
+ * @param string $hook   'entity:url'
+ * @param string $type   'object'
+ * @param string $url    The current URL
+ * @param array  $params Array('entity' => ElggObject)
+ * @return string URL of the chat
  */
-function chat_url_handler($entity) {
-	if (!$entity->getOwnerEntity()) {
-		// default to a standard view if no owner.
-		return FALSE;
+function chat_url_handler($hook, $type, $url, $params) {
+	$entity = elgg_extract('entity', $params);
+
+	if (!$entity instanceof ElggChat) {
+		return $url;
 	}
 
-	$friendly_title = elgg_get_friendly_title($entity->title);
+	$title = elgg_get_friendly_title($entity->title);
 
-	return "chat/view/{$entity->guid}/$friendly_title";
+	return "chat/view/{$entity->guid}/$title";
 }
 
 /**
