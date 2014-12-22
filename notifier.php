@@ -7,8 +7,6 @@
  * topbar menu item and popup module.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/engine/start.php');
-
 /**
  * @todo Could we just make a straight query that checks how many
  * "unread_messages" annotations the user has? Is it possible

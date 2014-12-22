@@ -70,6 +70,12 @@ function chat_page_handler ($page) {
 	}
 
 	switch ($page[0]) {
+		case 'messages':
+			include(__DIR__ . '/messages.php');
+			return true;
+		case 'notifier':
+			include(__DIR__ . '/notifier.php');
+			return true;
 		case 'owner':
 			$user = get_user_by_username($page[1]);
 			$params = chat_all($user->guid);

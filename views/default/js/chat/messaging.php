@@ -23,7 +23,7 @@ elgg.chat.getUnreadMessages = function() {
 	var time_created = $('.elgg-chat-messages #timestamp').last().text();
 	var guid = $('input:hidden[name=container_guid]').val();
 
-	var url = elgg.normalize_url("mod/chat/messages.php");
+	var url = elgg.normalize_url("chat/messages");
 	var params = {
 		"time_created": time_created,
 		"guid": guid
@@ -57,7 +57,7 @@ elgg.chat.pagination = function (event) {
 
 	var guid = $('input:hidden[name=container_guid]').val();
 	var time_created = $('.elgg-chat-messages #timestamp').first().text();
-	var url = elgg.normalize_url("mod/chat/messages.php");
+	var url = elgg.normalize_url("chat/messages");
 
 	var params = {
 		"guid": guid,

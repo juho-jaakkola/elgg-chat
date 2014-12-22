@@ -21,7 +21,7 @@ elgg.chat.init = function() {
  * and popup module with the data.
  */
 elgg.chat.getMessages = function() {
-	var url = elgg.normalize_url("mod/chat/notifier.php");
+	var url = elgg.normalize_url("chat/notifier");
 	var messages = elgg.getJSON(
 		url,
 		{

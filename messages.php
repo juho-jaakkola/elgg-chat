@@ -3,8 +3,6 @@
  * Ajax endpoint for getting new chat messages.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/engine/start.php');
-
 $user = elgg_get_logged_in_user_entity();
 
 $time_created = get_input('time_created');
