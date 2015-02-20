@@ -28,6 +28,7 @@ $finnish = array(
 	'chat:group' => 'Ryhmän chat',
 	'chat:enablechat' => 'Ota käyttöön ryhmän chat',
 	'chat:write' => 'Aloita uusi chat',
+	'chat:message:send' => 'Lähetä',
 
 	// Editing
 	'chat:add' => 'Aloita uusi chat',

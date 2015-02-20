@@ -28,6 +28,7 @@ $english = array(
 	'chat:group' => 'Group chat',
 	'chat:enablechat' => 'Enable group chat',
 	'chat:write' => 'Start a chat',
+	'chat:message:send' => 'Send',
 
 	// Editing
 	'chat:add' => 'Start a chat',

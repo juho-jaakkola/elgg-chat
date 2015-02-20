@@ -22,7 +22,7 @@ $container_guid_input = elgg_view('input/hidden', array(
 
 $submit_input = elgg_view('input/submit', array(
 	'name' => 'submit',
-	'value' => elgg_echo('save'),
+	'value' => elgg_echo('chat:message:send'),
 ));
 
 $form = <<<FORM
