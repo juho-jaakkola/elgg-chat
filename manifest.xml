@@ -3,10 +3,10 @@
 	<name>Chat</name>
 	<id>chat</id>
 	<author>Juho Jaakkola</author>
-	<version>1.9.1</version>
+	<version>1.9.2</version>
 	<blurb>Chat with one or multiple users.</blurb>
 	<description>Chat-like messaging system that allows you to discuss with one or multiple users.</description>
-	<copyright>(C) Mediamaisteri Group 2012-2014</copyright>
+	<copyright>(C) Mediamaisteri Group 2012-2015</copyright>
 	<website>http://www.mediamaisteri.com/</website>
 	<license>GNU Public License version 2</license>
 	<requires>
