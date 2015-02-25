@@ -37,6 +37,10 @@ define(function(require) {
 					if (data) {
 						// Append messages to discussion
 						$('.elgg-chat-messages > .elgg-list').append(data);
+
+						// Scroll automatically to the bottom of the list
+						var list = $(".elgg-chat-messages");
+						list.animate({scrollTop: list[0].scrollHeight}, 1000);
 					}
 				}
 			}
