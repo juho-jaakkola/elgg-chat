@@ -29,9 +29,9 @@ define(function(require) {
 
 					counter.text(data.count);
 					if (data.count > 0) {
-						counter.removeAttr('hidden');
+						counter.removeClass('hidden');
 					} else {
-						counter.attr('hidden', '');
+						counter.addClass('hidden');
 					}
 
 					// Add content to popup module

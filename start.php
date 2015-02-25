@@ -269,7 +269,7 @@ function chat_notifier() {
 			$text .= "<span id=\"chat-messages-new\">$count</span>";
 		} else {
 			// Add a hidden element so value can be added using XHR
-			$text .= "<span id=\"chat-messages-new\" hidden></span>";
+			$text .= "<span id=\"chat-messages-new\" class=\"hidden\"></span>";
 		}
 
 		// This link opens the popup module
