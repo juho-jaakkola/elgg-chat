@@ -25,9 +25,11 @@ class ElggChat extends ElggObject {
 		if ($success) {
 			$user = elgg_get_logged_in_user_entity();
 
-			$subject = elgg_echo('chat:notification:subject:newchat');
-			$body = elgg_echo('chat:notification:newchat', array($user->name, $this->title, $this->getURL()));
-			notify_user($user_guid, elgg_get_site_entity()->getGUID(), $subject, $body);
+			if ($user->guid !== $user_guid) {
+				$subject = elgg_echo('chat:notification:subject:newchat');
+				$body = elgg_echo('chat:notification:newchat', array($user->name, $this->title, $this->getURL()));
+				notify_user($user_guid, elgg_get_site_entity()->getGUID(), $subject, $body);
+			}
 		}
 
 		return $success;
