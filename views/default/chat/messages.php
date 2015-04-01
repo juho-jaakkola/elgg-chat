@@ -37,6 +37,7 @@ echo <<<MSG
 	<div class="elgg-chat-messages pbm">
 		$message_list
 	</div>
+	<p id="elgg-chat-notice" class="elgg-box hidden elgg-state-notice"></p>
 	$message_form
 </div>
 MSG;

@@ -5,15 +5,76 @@ define(function(require) {
 	var $ = require('jquery');
 	var elgg = require('elgg');
 
+	var messages = $('.elgg-chat-messages');
+
+	/**
+	 * Initialize the module
+	 */
 	var ready = function() {
+		goToBottom();
+
+		messages.scroll(markMessagesRead);
+
 		// Get unread messages every 10 seconds
 		setInterval(getUnreadMessages, 10000);
 
-		// Mark unread messages read every two seconds
-		// TODO Run this only when new messages have been added via XHR
-		setInterval(markMessageRead, 2000);
-
 		$('#chat-view-more').bind('click', pagination);
+	};
+
+	/**
+	 * Mark messages read when they are fully visible in the chat window
+	 *
+	 * Removes the highlighted background color and removes the class
+	 * that identifies the item as unread.
+	 */
+	var markMessagesRead = function() {
+		var unread = $('.elgg-chat-unread');
+
+		if (unread.length) {
+			var unreadMessage = $(unread[0]);
+
+			var unreadListItem = unreadMessage.parent();
+
+			var unreadMessageTop = 0;
+
+			// Count total height of all read messages
+			unreadListItem.prevAll().each(function(k, v) {
+				unreadMessageTop += $(v).outerHeight();
+			});
+
+			// Amount of pixels from top of the list to the bottom
+			// of the first unread message.
+			var unreadMessageBottom = unreadMessageTop + unreadListItem.outerHeight();
+
+			// Check if the oldest unread message is fully inside the chat message window
+			if ((unreadMessageBottom - messages.scrollTop()) <= messages.height()) {
+				// Message is visible. Animate the background color away and
+				// remove the class that identifies the message as unread.
+				unreadMessage.animate({backgroundColor: '#ffffff'}, 1000).removeClass('elgg-chat-unread');
+
+				updateUnreadMessageNotification();
+			}
+		}
+	};
+
+	/**
+	 * Notifies user about new unread messages
+	 *
+	 * Either updates the amount of unread messages, or hides the
+	 * notification completely in case there aren't any unread messages.
+	 */
+	var updateUnreadMessageNotification = function() {
+		var notice = $('#elgg-chat-notice');
+		var unreadCount = $('.elgg-chat-unread').length;
+
+		if (unreadCount) {
+			// Update the notification
+			var noticeText = elgg.echo('chat:unread_messages', [unreadCount]);
+			notice.html(noticeText).show();
+		} else {
+			// Hide the notification
+			notice.hide();
+		}
 	};
 
 	/**
@@ -38,9 +99,8 @@ define(function(require) {
 						// Append messages to discussion
 						$('.elgg-chat-messages > .elgg-list').append(data);
 
-						// Scroll automatically to the bottom of the list
-						var list = $(".elgg-chat-messages");
-						list.animate({scrollTop: list[0].scrollHeight}, 1000);
+						// Notify user about new unread messages
+						updateUnreadMessageNotification();
 					}
 				}
 			}
@@ -48,12 +108,13 @@ define(function(require) {
 	};
 
 	/**
-	 * Change the color of new messages.
+	 * Scroll to the bottom of the chat message list
 	 */
-	var markMessageRead = function() {
-		var activeMessages = $('.elgg-chat-messages .elgg-chat-unread');
-		var message = $(activeMessages[0]);
-		message.animate({backgroundColor: '#ffffff'}, 1000).removeClass('elgg-chat-unread');
+	var goToBottom = function() {
+		var list = $(".elgg-chat-messages");
+		var scrollHeight = list[0].scrollHeight;
+
+		list.scrollTop(scrollHeight);
 	};
 
 	var pagination = function (event) {
