@@ -52,6 +52,8 @@ $english = array(
 	'chat:error:cannot_delete' => 'Cannot delete chat.',
 	'chat:error:missing:title' => 'Please enter title!',
 	'chat:error:missing:members' => 'No members selected!',
+	'chat:error:missing:message' => 'Enter a message',
+	'chat:error:missing:container_guid' => 'Cannot find the chat',
 	'chat:error:cannot_edit_post' => 'This chat may not exist or you may not have permissions to edit it.',
 	'chat:error:cannot_leave' => 'Failed to leave chat.',
 
