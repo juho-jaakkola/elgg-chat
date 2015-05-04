@@ -51,8 +51,10 @@ $finnish = array(
 	'chat:error:cannot_write_to_container' => 'Sinulla ei ole oikeuksia aloittaa chattia tässä ryhmässä.',
 	'chat:error:cannot_add_member' => 'Henkilön %s lisääminen epäonnistui.',
 	'chat:error:cannot_delete' => 'Chatin poistaminen epäonnistui.',
-	'chat:error:missing:title' => 'Syötä chatille aihe!',
-	'chat:error:missing:members' => 'Valitse vähintään yksi henkilö!',
+	'chat:error:missing:title' => 'Syötä chatille aihe',
+	'chat:error:missing:members' => 'Valitse vähintään yksi henkilö',
+	'chat:error:missing:message' => 'Syötä viesti',
+	'chat:error:missing:container_guid' => 'Chattia ei löytynyt',
 	'chat:error:cannot_edit_post' => 'Tämä chat on poistettu tai sinulla ei ole oikeuksia muokata sitä.',
 	'chat:error:cannot_leave' => 'Chatista poistuminen epäonnistui.',
 

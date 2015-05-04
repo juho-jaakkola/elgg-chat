@@ -53,6 +53,8 @@ $german = array(
 	'chat:error:cannot_delete' => 'Chat kann nicht gelöscht werden.',
 	'chat:error:missing:title' => 'Bitte gebe einen Titel an!',
 	'chat:error:missing:members' => 'Keine Teilnehmer ausgewählt!',
+	'chat:error:missing:message' => 'Enter a message',
+	'chat:error:missing:container_guid' => 'Cannot find the chat',
 	'chat:error:cannot_edit_post' => 'Dieser Chat ist möglicherweise nicht vorhanden, oder Sie haben keine Berechtigung, diesen zu bearbeiten.',
 	'chat:error:cannot_leave' => 'Fehler beim Verlassen des Chats',
 
