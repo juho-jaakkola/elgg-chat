@@ -46,6 +46,8 @@ if ($not_read) {
 }
 
 if ($entity->canEdit()) {
+	elgg_load_library('chat');
+
 	$body_vars = chat_prepare_message_form_vars($entity);
 	$form_vars = array(
 		'class' => 'hidden',
