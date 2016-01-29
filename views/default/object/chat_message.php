@@ -26,7 +26,9 @@ $params = array(
 $params = $params + $vars;
 $list_body = elgg_view('object/elements/summary', $params);
 
-$owner_icon = elgg_view_entity_icon($owner, 'small');
+$owner_icon = elgg_view_entity_icon($owner, 'small', array(
+	'use_hover' => false,
+));
 
 $not_read = check_entity_relationship($entity->getGUID(), 'unread', $user->getGUID());
 

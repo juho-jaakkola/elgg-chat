@@ -30,7 +30,7 @@ function chat_init() {
 
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup', 600);
-	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
+		elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'chat_url_handler');
 
 	elgg_register_event_handler('pagesetup', 'system', 'chat_notifier');
