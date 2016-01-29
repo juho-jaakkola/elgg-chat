@@ -16,7 +16,9 @@ $messages = elgg_get_entities(array(
 ));
 $messages = array_reverse($messages);
 
-$message_list = elgg_view_entity_list($messages);
+$message_list = elgg_view_entity_list($messages, array(
+	'list_class' => "elgg-chat-{$chat->guid}",
+));
 
 $body_vars = chat_prepare_message_form_vars();
 $body_vars['container_guid'] = $chat->getGUID();
