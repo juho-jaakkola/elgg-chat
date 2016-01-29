@@ -17,13 +17,6 @@ $time_created = "<span id=\"timestamp\" class=\"hidden\">$entity->time_created</
 
 $subtitle = "$owner_name $date $time_created";
 
-$metadata = elgg_view_menu('entity', array(
-	'entity' => $vars['entity'],
-	'handler' => 'entity',
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz',
-));
-
 $params = array(
 	'entity' => $entity,
 	'metadata' => $metadata,
@@ -43,17 +36,6 @@ if ($not_read) {
 
 	// Mark message read
 	remove_entity_relationship($entity->getGUID(), 'unread', $user->getGUID());
-}
-
-if ($entity->canEdit()) {
-	elgg_load_library('chat');
-
-	$body_vars = chat_prepare_message_form_vars($entity);
-	$form_vars = array(
-		'class' => 'hidden',
-		'id' => "chat-edit-message-{$entity->getGUID()}",
-	);
-	$list_body .= elgg_view_form('chat/message/save', $form_vars, $body_vars);
 }
 
 echo elgg_view_image_block($owner_icon, $list_body, $vars);

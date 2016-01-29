@@ -30,8 +30,6 @@ function chat_init() {
 
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup', 600);
-	// Register on low priority so it's possible to remove items added by other plugins
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_message_menu_setup', 600);
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'chat_permissions_override');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'chat_url_handler');
 
@@ -186,60 +184,6 @@ function chat_entity_menu_setup ($hook, $type, $return, $params) {
 	// Use white list to prevent unwanted menu items
 	$allow = array('unread_mesages');
 	if (!elgg_in_context('chat_preview')) {
-		$allow[] = 'edit';
-		$allow[] = 'delete';
-	}
-
-	// Remove unwanted menu items
-	foreach ($return as $index => $item) {
-		if (!in_array($item->getName(), $allow)) {
-			unset($return[$index]);
-		}
-	}
-
-	return $return;
-}
-
-/**
- * Set up the entity menu for chat messages.
- */
-function chat_message_menu_setup ($hook, $type, $return, $params) {
-	if (elgg_in_context('widgets')) {
-		return $return;
-	}
-
-	$entity = $params['entity'];
-
-	if ($entity->getSubtype() !== 'chat_message') {
-		return $return;
-	}
-
-	// We don't want other plugins to add new menu items so we use a white list
-	$allow = array('likes');
-
-	$user = elgg_get_logged_in_user_entity();
-
-	if ($entity->getOwnerGUID() == $user->getGUID() || $user->isAdmin()) {
-		$guid = $entity->getGUID();
-
-		$options = array(
-			'name' => 'edit',
-			'text' => elgg_echo('edit'),
-			'href' => "#chat-edit-message-$guid",
-			'priority' => 100,
-			'rel' => 'toggle',
-		);
-		$return[] = ElggMenuItem::factory($options);
-
-		$options = array(
-			'name' => 'delete',
-			'text' => elgg_view_icon('delete'),
-			'href' => "action/chat/message/delete?guid=$guid",
-			'priority' => 150,
-			'is_action' => true,
-		);
-		$return[] = ElggMenuItem::factory($options);
-
 		$allow[] = 'edit';
 		$allow[] = 'delete';
 	}
