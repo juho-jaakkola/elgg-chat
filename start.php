@@ -26,7 +26,7 @@ function chat_init() {
 	elgg_require_js('chat/chat');
 
 	// Add custom CSS
-	elgg_extend_view('css', 'chat/css');
+	elgg_extend_view('css/elgg', 'chat/css');
 
 	// Register on low priority so it's possible to remove items added by other plugins
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'chat_entity_menu_setup', 600);
