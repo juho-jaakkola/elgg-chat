@@ -61,22 +61,7 @@ $german = array(
 	// river
 	'river:create:object:chat' => '%s startete den Chat %s',
 
-	// user settings
-	'chat:usersettings:emailnotification' => 'Eine E-Mail-Benachrichtigung senden, wenn ich eine neue Nachricht erhalte.',
-
 	// notifications
-	'chat:notification:subject:newpost' => 'Eine neue Chatnachricht',
-	'chat:notification:newpost' =>
-'
-%s schrieb eine neue Nachricht im Chat "%s".
-
-Sie heißt:
-
-"%s"
-
-Nachrichten im Chat anzeigen und senden:
-%s
-',
 	'chat:notification:subject:newchat' => 'Ein neuer Chat',
 	'chat:notification:newchat' =>
 '

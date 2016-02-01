@@ -61,20 +61,7 @@ $finnish = array(
 	// river
 	'river:create:object:chat' => '%s aloitti chatin aiheella %s',
 
-	// user settings
-	'chat:usersettings:emailnotification' => 'Lähetä sähköpostiin ilmoitus, kun joku lähettää minulle uuden viestin',
-
 	// notifications
-	'chat:notification:subject:newpost' => 'Uusi chat-viesti',
-	'chat:notification:newpost' =>
-'
-%s lähetti uuden viestin chattiin "%s".
-
-"%s"
-
-Osallistu keskusteluun osoitteessa:
-%s
-',
 	'chat:notification:subject:newchat' => 'Uusi chat-keskustelu',
 	'chat:notification:newchat' =>
 '

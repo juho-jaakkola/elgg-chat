@@ -58,14 +58,6 @@ if ($entity->save()) {
 
 		// Add number of unread messages also to the chat object
 		$chat->increaseUnreadMessageCount($member);
-
-		// Send email notification if user has enabled it
-		$email_notification = elgg_get_plugin_user_setting('email_notification', $member->getGUID(), 'chat');
-		if ($email_notification == 'on') {
-			$subject = elgg_echo('chat:notification:subject:newpost');
-			$body = elgg_echo('chat:notification:newpost', array($user->name, $chat->title, $message, $chat->getURL()));
-			notify_user($member->getGUID(), elgg_get_site_entity()->getGUID(), $subject, $body, null, 'email');
-		}
 	}
 
 	// @todo Should we update the container chat so we can order chats by
