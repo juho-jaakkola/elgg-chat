@@ -28,7 +28,7 @@ $user = elgg_get_logged_in_user_entity();
 if ($guid) {
 	$entity = get_entity($guid);
 
-	if (!elgg_instanceof($entity, 'object', 'chat_message') && $entity->canEdit()) {
+	if (!elgg_instanceof($entity, 'object', 'chat_message') || !$entity->canEdit()) {
 		register_error(elgg_echo('noaccess'));
 		forward(REFERER);
 	}
